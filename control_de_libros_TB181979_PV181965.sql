@@ -2,7 +2,7 @@ use master;
 DROP DATABASE IF EXISTS  [ Control_de_libros_TB181979]
 
 CREATE DATABASE [ Control_de_libros_TB181979]
-go
+   go
 
 use [ Control_de_libros_TB181979]
 
