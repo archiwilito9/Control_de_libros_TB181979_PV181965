@@ -1,5 +1,5 @@
 use master;
-DROP DATABASE [ Control_de_libros_TB181979];
+DROP DATABASE IF EXISTS  [ Control_de_libros_TB181979]
 
 CREATE DATABASE [ Control_de_libros_TB181979]
 go
