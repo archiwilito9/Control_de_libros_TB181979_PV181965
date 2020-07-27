@@ -1,8 +1,8 @@
 use master;
-DROP DATABASE IF EXISTS [ Control_de_libros_TB181979];
+DROP DATABASE IF EXISTS  [ Control_de_libros_TB181979]
 
 CREATE DATABASE [ Control_de_libros_TB181979]
-go
+   go
 
 use [ Control_de_libros_TB181979]
 
@@ -160,3 +160,46 @@ FROM Libro li
 INNER JOIN Ejemplar ej ON li.Codigo=ej.Cod_libro
 WHERE ej.Estado='Prestado'
 group by ej.Ubicacion, li.Titulo
+
+
+/* ================== Parte #3 ================== */
+
+/* Crear la tabla autores_espana, utilice un insert select, para insertar los autores que sean de españa */
+
+create table autores_espana(
+Codigo varchar(4) primary key,
+Nombres varchar(50),
+Apellidos varchar(50)
+)
+
+insert into autores_espana
+select Codigo,Nombres,Apellidos
+from Autor
+where Nacionalidad = 'Española'
+
+/* Crear una vista con el nomber copia_libro va a utilizar las tablas title, item y copy, de la
+base de datos LIBRARY y va a generar una consulta que devuelva isbn, copy_no,
+on_loan, title, translation y cover, y valores para las filas de la tabla copy cuyo ISBN sea 1
+(uno), 500 (quinientos) o 1000 (mil). Ordene los resultados por la columna isbn. Para cada
+tabla debe utilizar un alias  */
+
+use library
+
+
+if object_id('copia_libro') is not null
+  drop view copia_libro;
+  go
+
+create view copia_libro 
+	as select top 100 percent i.isbn as 'ISBN',c.copy_no as 'N° de copia',c.on_loan as 'En préstamo', t.title as 'Título', i.translation as 'Traducción', i.cover as 'Tapa'
+	from item i
+	inner join copy c on i.isbn = c.isbn
+	inner join title t on c.title_no = t.title_no
+	where i.isbn in ('1','500','1000')
+	order by i.isbn asc
+go
+
+/* Mostrando información de la vista */
+select * from copia_libro
+order by isbn asc
+
