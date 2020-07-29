@@ -175,7 +175,7 @@ Apellidos varchar(50)
 insert into autores_espana
 select Codigo,Nombres,Apellidos
 from Autor
-where Nacionalidad = 'Española'
+where Nacionalidad = 'ESPANOLA'
 
 /* Crear una vista con el nomber copia_libro va a utilizar las tablas title, item y copy, de la
 base de datos LIBRARY y va a generar una consulta que devuelva isbn, copy_no,
